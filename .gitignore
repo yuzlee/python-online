@@ -1,0 +1,9 @@
+# Visuall C++ Solution
+pythonutil/**/x64
+pythonutil/**/Release
+pythonutil/.vs
+
+# Java Service via SpringMVC
+service/.idea
+service/target
+service/**/resources
