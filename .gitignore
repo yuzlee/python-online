@@ -6,4 +6,4 @@ pythonutil/.vs
 # Java Service via SpringMVC
 service/.idea
 service/target
-service/**/resources
+service/**/properties/*

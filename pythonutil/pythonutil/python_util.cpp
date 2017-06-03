@@ -1,31 +1,3 @@
-//#include <Python.h>
-//#include <iostream>
-//#include <string>
-//
-//int main() {
-//	Py_Initialize();
-//	if (!Py_IsInitialized()) {
-//		std::cerr << "Error while initializing python environment." << std::endl;
-//	}
-//	std::cout << "Python Initialized." << std::endl;
-//	while (true) {
-//		std::string code;
-//		getline(std::cin, code);
-//		PyRun_SimpleString(code.c_str());
-//		if (PyErr_Occurred()) {
-//			PyErr_Print();
-//		}
-//		
-//		std::cout << "--------" << std::endl;
-//		std::cout << stdout;
-//		std::cout << "++++++++" << std::endl;
-//		std::cout.flush();
-//	}
-//	Py_Finalize();
-//	return 0;
-//}
-
-
 #include <functional>
 #include <iostream>
 #include <string>
