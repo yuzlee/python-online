@@ -220,19 +220,15 @@ int main() {
 			continue;
 		}
 		// here comes the ***magic***
-		std::string stdout_buffer;
-		std::string stderr_buffer;
+
 		// switch sys.stdout to custom handler
-		emb::stdout_write_type stdout_writer = [&stdout_buffer](std::string s) { stdout_buffer += s; };
+		emb::stdout_write_type stdout_writer = [](std::string s) { std::cout << s; };
 		emb::set_stdout(stdout_writer);
-		emb::stdout_write_type stderr_writer = [&stderr_buffer](std::string s) { stderr_buffer += s; };
+		emb::stdout_write_type stderr_writer = [](std::string s) { std::cerr << s; };
 		emb::set_stderr(stderr_writer);
 
 		PyRun_SimpleString(cached_code.c_str());
 		cached_code.clear();
-		// output what was written to buffer object
-		std::cout << stdout_buffer;
-		std::cerr << stderr_buffer;
 	}
 	emb::reset_stdout();
 	emb::reset_stderr();
