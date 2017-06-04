@@ -14,7 +14,7 @@
 
     <style>
         .editor {
-            height: 500px;
+            height: 100%;
         }
     </style>
 </head>
@@ -22,35 +22,44 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                    <textarea id="code_area" class="form-control editor"></textarea>
-            </div>
-            <div class="col-md-6">
-                <textarea id="result_area" class="form-control editor"></textarea>
+                <input type="button" class="btn" id="run_code" value="Run" />
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <input type="button" class="btn" id="run_code" value="Run" />
+            <div class="col-md-6">
+                <textarea id="code_area" class="form-control editor"></textarea>
             </div>
-            <div>
-                <input type="text" id="info_text" class="form-control" />
+            <div class="col-md-6">
+                <textarea id="result_area" class="form-control editor"></textarea>
             </div>
         </div>
     </div>
 
 
     <script>
-        var socket = new WebSocket("ws://localhost:8080/python/server");
+        var socket = new WebSocket("ws://<%=request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath()%>/python/server");
         socket.onmessage = function (m) {
             var info = m.data;
             var content = $("#result_area").val();
-            $("#result_area").val(content + '\n' + info);
-            $("#info_text").val(new Date().toLocaleTimeString());
+            if (content !== "") {
+                content += '\n' + info;
+            }
+            $("#result_area").val(content);
         }
-        $("#run_code").click(function () {
-            var code = $("#code_area").val();
+        socket.onclose = function (p1) {
+            alert("Connection closed.");
+        }
+
+        var sendCode = function (code) {
             console.log(code);
             socket.send(code);
+        }
+        $("#run_code").click(function () {
+            $("#info_text").val("");
+            $("#result_area").val("");
+
+            var code = $("#code_area").val();
+            sendCode(code);
         });
     </script>
 </body>
