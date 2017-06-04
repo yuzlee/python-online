@@ -24,23 +24,25 @@ public class ProcessStreamRunnable implements Runnable {
 
         this.builder = new ProcessBuilder(command);
         this.builder.redirectErrorStream(true);
-    }
-
-    public void run() {
         try {
             this.process = this.builder.start();
-
-            this.processStdin = this.process.getOutputStream();
-            this.processStdout = this.process.getInputStream();
-
-            AsyncInputReader asyncInputReader = new AsyncInputReader(this.processStdout, this.callback);
-            AsyncOutputWriter asyncOutputWriter = new AsyncOutputWriter(this.processStdin, this.pin);
-
-            asyncOutputWriter.start();
-            asyncInputReader.start();
-            // this.process.waitFor();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Process getProcess() {
+        return this.process;
+    }
+
+    public void run() {
+        this.processStdin = this.process.getOutputStream();
+        this.processStdout = this.process.getInputStream();
+
+        AsyncInputReader asyncInputReader = new AsyncInputReader(this.processStdout, this.callback);
+        AsyncOutputWriter asyncOutputWriter = new AsyncOutputWriter(this.processStdin, this.pin);
+
+        asyncOutputWriter.start();
+        asyncInputReader.start();
     }
 }

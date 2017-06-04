@@ -14,7 +14,7 @@
 
     <style>
         .editor {
-            height: 100%;
+            height: 80%;
         }
     </style>
 </head>
@@ -42,9 +42,9 @@
             var info = m.data;
             var content = $("#result_area").val();
             if (content !== "") {
-                content += '\n' + info;
+                info = content + '\n' + info;
             }
-            $("#result_area").val(content);
+            $("#result_area").val(info);
         }
         socket.onclose = function (p1) {
             alert("Connection closed.");

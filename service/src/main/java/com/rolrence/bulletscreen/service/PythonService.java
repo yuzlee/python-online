@@ -24,6 +24,7 @@ public class PythonService {
     private static File folder = new File(System.getProperty("java.io.tmpdir"));
 
     private static Map<User, PipedOutputStream> userInput = new ConcurrentHashMap<>();
+    private static Map<User, Process> userProcess = new ConcurrentHashMap<>();
     private static ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     private static String pythonCommand;
@@ -40,6 +41,12 @@ public class PythonService {
         }
     }
 
+    public void finalize() {
+        userProcess.forEach((user, process) -> {
+            process.destroyForcibly();
+        });
+    }
+
     private static StreamDelegate getDelegate(WebSocketSession session) {
         return new StreamDelegate(s -> {
             try {
@@ -49,6 +56,8 @@ public class PythonService {
                         session.sendMessage(new TextMessage(s));
                     }
                     return true;
+                } else {
+                    System.out.println("Connection has benn closed.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -66,6 +75,17 @@ public class PythonService {
         if (key == null) {
             return;
         }
+        if (content.equals("exit()") && userProcess.containsKey(key)) {
+            userProcess.get(key).destroyForcibly();
+            try {
+                session.sendMessage(new TextMessage("Exit."));
+                session.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
         PipedOutputStream pout = null;
         if (userInput.containsKey(key)) {
             pout = userInput.get(key);
@@ -79,10 +99,13 @@ public class PythonService {
 
                 if (pythonCommand == null) {
                     session.sendMessage(new TextMessage("Server Error."));
+                    session.close();
                     System.out.println("Can not find the python execution");
                     return;
                 }
                 ProcessStreamRunnable p = new ProcessStreamRunnable(pythonCommand, pin, getDelegate(session));
+                userProcess.put(key, p.getProcess());
+
                 cachedThreadPool.execute(p);
             } catch (IOException e) {
                 e.printStackTrace();

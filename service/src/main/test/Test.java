@@ -18,14 +18,14 @@ public class Test {
             PipedInputStream pin = new PipedInputStream();
             pin.connect(pout);
             String command = "D:\\Workspace\\Experiment\\bullet-screen\\pythonutil\\x64\\Release\\pythonutil.exe";
-//            String command = "C:\\Users\\Rolrence\\Desktop\\a.exe";
+//            String command = "/home/user/python/pythonutil";
             ProcessStreamRunnable p = new ProcessStreamRunnable(command, pin, delegate);
             Thread thread = new Thread(p);
             thread.start();
 
             Scanner scanner = new Scanner(System.in);
             while (true) {
-                // System.out.print("Input: ");
+                // System.out.print(">>>");
                 String content = scanner.nextLine();
                 pout.write(content.getBytes());
                 pout.flush();

@@ -45,17 +45,15 @@ public class UserController {
     }
 
     // /login?name=xxx&password=yyy
-    @ResponseBody
     @RequestMapping(value="/login", method = RequestMethod.POST)
-    public boolean login(@RequestParam("name") String name, @RequestParam("password") String password,
+    public String login(@RequestParam("name") String name, @RequestParam("password") String password,
                               ModelMap modelMap) {
-        boolean status = false;
         User user = userService.auth(name, password);
         if (user != null) {
             modelMap.addAttribute("user", user);
-            status = true;
+            return "redirect:/python/editor";
         }
-        return status;
+        return "user/login";
     }
 
     // /add?name=xxx&password=yyy
