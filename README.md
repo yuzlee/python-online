@@ -31,4 +31,4 @@ There are some properties for web appliction.
 #### 4.1 Efficiency
 As mentioned above, we use three threads to support one online interpreter, the AsyncReader may not be efficient to catch output stream from pythonutil. In fact, we found that the buffer length is sensitive to both `C++ to Java` and `Java to Web` processes.
 #### 4.2 Security
-pythonutil is running at the host server currently, it could be harmful to server if some `bad` code is submitted. We could deploy sandbox for pythonutil for feature uses.
+pythonutil is running at the host server currently, it could be harmful to server if some `bad` code is submitted. We could deploy sandbox for pythonutil for future uses.
