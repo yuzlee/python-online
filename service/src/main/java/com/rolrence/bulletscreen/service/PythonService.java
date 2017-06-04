@@ -29,10 +29,11 @@ public class PythonService {
     private static String pythonCommand;
 
     static {
-        InputStream is = new ByteArrayInputStream("/properties/python-config.properties".getBytes());
-        Properties properties = new Properties();
         try {
-            properties.load(is);
+            System.out.println("Read config");
+            InputStream in = PythonService.class.getResourceAsStream("/properties/python-config.properties");
+            Properties properties = new Properties();
+            properties.load(in);
             pythonCommand = properties.getProperty("python.path");
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,14 +58,6 @@ public class PythonService {
     }
 
     public static User getSessionKey(WebSocketSession session) {
-//        HttpHeaders httpHeaders = session.getHandshakeHeaders();
-//        String[] cookies = httpHeaders.get("Cookie").get(0).split(";");
-//        for (String cookie: cookies) {
-//            if (cookie.contains("JSESSIONID")) {
-//                return cookie.replace("JSESSIONID=", "").trim();
-//            }
-//        }
-//        return null;
         return (User)session.getAttributes().get("user");
     }
 
