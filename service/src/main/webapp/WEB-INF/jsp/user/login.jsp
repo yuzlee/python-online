@@ -50,7 +50,7 @@
             <div class="row">
                 <form role="form" method="post" >
                     <div class="modal-header">
-                      <h1 class="text-center text-primary">Sgin in Python-online</h1>
+                      <h1 class="text-center text-primary">Sign in</h1>
                   </div>
                   <div class="form-group" >
                     <label for="name" >Username</label>
