@@ -78,6 +78,8 @@ public class PythonService {
         if (content.equals("exit()") && userProcess.containsKey(key)) {
             userProcess.get(key).destroyForcibly();
             try {
+                userInput.remove(key);
+                userProcess.remove(key);
                 session.sendMessage(new TextMessage("Exit."));
                 session.close();
             } catch (Exception e) {
