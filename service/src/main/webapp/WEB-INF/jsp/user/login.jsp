@@ -21,8 +21,8 @@
             left: 0;
             right: 0;
             margin: auto;
-            height: 240px;
-            width: 70%;
+            height: 30%;
+            width: 25%;
         }
         #loginModal{
             margin: 0 auto;
