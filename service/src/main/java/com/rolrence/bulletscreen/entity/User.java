@@ -48,8 +48,7 @@ public class User implements Serializable {
     }
 
     public String toString() {
-        return "Name:" + this.getName() + "\n"
-                + "Password:" + this.getPassword();
+        return "Name:" + this.getName() + ", Password:" + this.getPassword();
     }
 
     public int hashCode() {
