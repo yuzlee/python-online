@@ -42,8 +42,6 @@
         h1{
             text-align: center;
         }
-        
-
     </style>
 </head>
 <body>
@@ -73,7 +71,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-
                     <button class="btn btn-primary btn-lg btn-block btn-success" id="btn_login" type="submit" >Sgin in</button>
                 </div>
             </form>
