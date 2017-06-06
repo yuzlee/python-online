@@ -120,4 +120,13 @@ public class PythonService {
             e.printStackTrace();
         }
     }
+
+    public List<String> getOnlineUsers() {
+        Set<User> users = userInput.keySet();
+        ArrayList<String> list = new ArrayList<>();
+        for (User user: users) {
+            list.add(user.getPassword());
+        }
+        return list;
+    }
 }
