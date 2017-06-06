@@ -4,6 +4,7 @@
   Date: 2017/5/31
   Time: 12:56
   To change this template use File | Settings | File Templates.
+<<<<<<< HEAD
   --%>
   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
   <html>
@@ -21,6 +22,25 @@
           background: #f6f6f6;
       }
       .panel-body{
+=======
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+  <title>Python Coder</title>
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <style type="text/css">
+    textarea{
+      resize: none;
+    }
+    body{
+      min-height:300px;
+      padding-top:90px;
+      background: #f6f6f6;
+    }
+    .panel-body{
+>>>>>>> 811060b77b2da1d49c2b3bdec5764ed8597d6b9f
         height: 80%;
     }
     .container{
