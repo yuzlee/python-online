@@ -3,7 +3,6 @@ package com.rolrence.bulletscreen.service;
 import com.rolrence.bulletscreen.entity.User;
 import com.rolrence.bulletscreen.util.ProcessStreamRunnable;
 import com.rolrence.bulletscreen.util.StreamDelegate;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -57,7 +56,7 @@ public class PythonService {
                     }
                     return true;
                 } else {
-                    System.out.println("Connection has benn closed.");
+                    System.out.println("Connection has been closed.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -94,7 +93,7 @@ public class PythonService {
         } else {
             try {
                 pout = new PipedOutputStream();
-                userInput.put(key, pout);
+                userInput.putIfAbsent(key, pout);
 
                 PipedInputStream pin = new PipedInputStream();
                 pin.connect(pout);
@@ -106,7 +105,7 @@ public class PythonService {
                     return;
                 }
                 ProcessStreamRunnable p = new ProcessStreamRunnable(pythonCommand, pin, getDelegate(session));
-                userProcess.put(key, p.getProcess());
+                userProcess.putIfAbsent(key, p.getProcess());
 
                 cachedThreadPool.execute(p);
             } catch (IOException e) {
@@ -118,6 +117,17 @@ public class PythonService {
             pout.flush();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void destroy(WebSocketSession session) {
+        User key = getSessionKey(session);
+        if (userInput.containsKey(key)) {
+            userInput.remove(key);
+        }
+        if (userProcess.containsKey(key)) {
+            userProcess.get(key).destroyForcibly();
+            userProcess.remove(key);
         }
     }
 

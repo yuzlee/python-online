@@ -3,6 +3,7 @@ package com.rolrence.bulletscreen.controller;
 import com.rolrence.bulletscreen.entity.User;
 import com.rolrence.bulletscreen.service.PythonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -25,6 +26,11 @@ public class WebSocketEndPoint extends TextWebSocketHandler {
             session.sendMessage(new TextMessage("authentication failed."));
             session.close();
         }
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        pythonService.destroy(session);
     }
 
     @Override
