@@ -37,7 +37,7 @@
       <div class="container">
         <div class="navbar-header ">
             <h1>
-               <a style="display: block;color: white" href="http://59.64.78.31:8080/rolrence/user/login">Python-online</a>
+               <a style="display: block;color: white" href="<%=request.getContextPath()%>/user/login">Python-online</a>
            </h1>
        </div>
    </div>
@@ -73,7 +73,7 @@
             </div>
             <div class="col-xs-6 text-right">
                 <button type="button" class="btn btn-success" id="run_code" 
-                onclick="{ if(confirm('确定跳转？'))location.href='http://59.64.78.31:8080/rolrence/user/login'}">登陆</button>
+                onclick="{ if(confirm('确定跳转？'))location.href='<%=request.getContextPath()%>/user/login'}">登陆</button>
             </div>
         </div>
     </div>
